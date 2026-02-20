@@ -1,0 +1,9 @@
+[2026-02-16 14:47:24] Préstamo ID 2 registrado en espera.
+[2026-02-16 14:49:11] Herramienta ID 9 agregada.
+[2026-02-16 14:49:45] Usuario ID 3 agregado correctamente.
+[2026-02-16 14:49:58] Intento fallido de actualizar usuario ID 4.
+[2026-02-16 14:50:06] Intento fallido de actualizar usuario ID 4.
+[2026-02-16 14:57:51] Préstamo ID 2 rechazado.
+[2026-02-16 21:23:08] Préstamo ID 3 registrado en espera.
+[2026-02-16 21:23:28] Préstamo ID 3 aprobado correctamente.
+[2026-02-16 21:23:55] Préstamo ID 3 devuelto.

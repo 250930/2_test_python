@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "usuario_id": 1,
+        "herramienta_id": 1,
+        "cantidad": 2,
+        "fecha_inicio": "2026-02-25",
+        "fecha_devolucion": "2026-03-28",
+        "estado": "en espera",
+        "observaciones": "nada"
+    },
+    {
+        "id": 2,
+        "usuario_id": 1,
+        "herramienta_id": 6,
+        "cantidad": 1,
+        "fecha_inicio": "25-02-2026",
+        "fecha_devolucion": "26-02-2026",
+        "estado": "rechazado",
+        "observaciones": ""
+    },
+    {
+        "id": 3,
+        "usuario_id": 1,
+        "herramienta_id": 1,
+        "cantidad": 1,
+        "fecha_inicio": "25-09-2026",
+        "fecha_devolucion": "30-09-2026",
+        "estado": "devuelto",
+        "observaciones": "arreglo de mi casa"
+    }
+]

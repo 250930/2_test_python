@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "nombre": "Taladro Bosch",
+        "categoria": "construccion",
+        "cantidad_disponible": 5,
+        "estado": "activa",
+        "valor_estimado": 350000
+    },
+    {
+        "id": 2,
+        "nombre": "Martillo Industrial",
+        "categoria": "construccion",
+        "cantidad_disponible": 10,
+        "estado": "activa",
+        "valor_estimado": 45000
+    },
+    {
+        "id": 3,
+        "nombre": "Podadora El\u00c3\u00a9ctrica",
+        "categoria": "jardineria",
+        "cantidad_disponible": 2,
+        "estado": "en reparacion",
+        "valor_estimado": 800000
+    },
+    {
+        "id": 4,
+        "nombre": "Tijeras de Poda",
+        "categoria": "jardineria",
+        "cantidad_disponible": 7,
+        "estado": "activa",
+        "valor_estimado": 60000
+    },
+    {
+        "id": 5,
+        "nombre": "Escalera Aluminio 6m",
+        "categoria": "construccion",
+        "cantidad_disponible": 1,
+        "estado": "fuera de servicio",
+        "valor_estimado": 500000
+    },
+    {
+        "id": 6,
+        "nombre": "consolador",
+        "categoria": "uso personal",
+        "cantidad_disponible": 100000,
+        "estado": "perfecto estado",
+        "valor_estimado": 1000000.0
+    },
+    {
+        "id": 7,
+        "nombre": "matraca",
+        "categoria": "sonido",
+        "cantidad_disponible": 10,
+        "estado": "perfecta",
+        "valor_estimado": 1000000000.0
+    },
+    {
+        "id": 8,
+        "nombre": "grapadora",
+        "categoria": "carpinteria",
+        "cantidad_disponible": 3,
+        "estado": "70000",
+        "valor_estimado": 700000.0
+    },
+    {
+        "id": 9,
+        "nombre": "motosierra ",
+        "categoria": "carpinteria",
+        "cantidad_disponible": 1,
+        "estado": "perfectas condiciones",
+        "valor_estimado": 2000000.0
+    }
+]

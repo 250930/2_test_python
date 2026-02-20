@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "nombres": "Jaime",
+        "apellidos": "Ram\u00c3\u00adrez Gomez",
+        "telefono": "3001234567",
+        "direccion": "Apto 101 - Torre A",
+        "tipo_usuario": "residente"
+    },
+    {
+        "id": 2,
+        "nombres": "Junior",
+        "apellidos": "Fern\u00c3\u00a1ndez Lopez",
+        "telefono": "3109876543",
+        "direccion": "Oficina Administraci\u00c3\u00b3n",
+        "tipo_usuario": "administrador"
+    },
+    {
+        "id": 3,
+        "nombres": "sebastian",
+        "apellidos": "jaimes",
+        "telefono": "3124421564",
+        "direccion": "amanecer paisa",
+        "tipo_usuario": "administrador"
+    }
+]
