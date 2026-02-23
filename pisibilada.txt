@@ -795,3 +795,5 @@ for r in reporte:
     print("Prestadas:",r[2])
     print("Disponibles:",r[3])
     print()
+
+    nuevo
