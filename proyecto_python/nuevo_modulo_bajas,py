@@ -1,0 +1,74 @@
+import  json
+from gestion import cargar_archivos
+
+
+def mostrar_inventario_bajas(datos, herramienta):
+    try:
+        with open("herramientas.json", "r") as arch:
+            datos = json.load(arch)
+    except (FileNotFoundError, json.JSONDecodeError):
+        if  not datos:
+            print("no hay herramientas en el inventario")
+        else:
+            print("\n" + "="*90)
+            print(f"{'ID':<5} {'NOMBRE':<50}{'ESTADO':<20}")
+            print("="*90)
+
+            for herramienta in datos:
+                print(f"{herramienta['id']:<5} "
+                    f"{herramienta['nombre']:<50} "
+                    f"{herramienta['estado']:<20} "
+                )
+            print("="*90)
+
+            """Elimina un implemento del sistema"""
+            id_baja = input("\n  Seleccione el ID de la herramienta: ").strip()
+            fecha = str(input("ingrese la fecha de baja (YYY/MM/DD): "))
+            motivo = str(input("ingrese el motivo : "))
+            nombre = ['nombre']
+
+            nueva_baja = {
+                "id": id_baja,
+                "nombre": nombre,
+                "fecha baja": fecha,
+                "motivo": motivo
+            }
+
+
+
+            datos.append(nueva_baja)
+
+            with open("bajas.json", "w") as arch:
+                json.dump(datos, arch, indent=4)
+
+            try:
+                with open("herramientas.json", "r") as arch:
+                    datos = json.load(arch)
+            except (json.JSONDecodeError, FileNotFoundError):
+                print("Error al leer el archivo.")
+                return
+
+            herramienta_encontrada = None
+
+            for herramienta in datos:
+                if herramienta["id"] == id_baja:
+                    herramienta_encontrada = herramienta
+                    break
+
+            if herramienta_encontrada is None:
+                print("ID no existe.")
+                return
+
+            datos.remove(herramienta_encontrada)
+
+            with open("herramientas.json", "w") as arch:
+                json.dump(datos, arch, indent=4)
+            print("Herramienta eliminada correctamente.")
+
+
+def inicio():
+    ini = input("presione enter para iniciar el modulo de bajas:")
+
+    if ini == ini or None :
+        mostrar_inventario_bajas('datos', 'herramienta')
+inicio()
