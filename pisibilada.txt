@@ -1,0 +1,797 @@
+🔹 MODULO 1 — préstamos activos (Markdown)
+import json
+
+def cargar(a):
+    try:
+        with open(a,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+prestamos=cargar("asignaciones.json")
+
+activos=[p for p in prestamos if p["estado"]=="activo"]
+
+if not activos:
+    print("No hay prestamos activos")
+else:
+    with open("prestamos_activos.md","w") as f:
+        f.write("# Prestamos Activos\n")
+        for p in activos:
+            f.write(f"{p['id']} | {p['unidades']}\n")
+    print("Archivo generado")
+🔹 MODULO 2 — préstamos vencidos
+import json
+from datetime import datetime
+
+def cargar(a):
+    try:
+        return json.load(open(a))
+    except:
+        return []
+
+prestamos=cargar("asignaciones.json")
+
+hoy=datetime.now().date()
+
+vencidos=[]
+
+for p in prestamos:
+    fecha=datetime.strptime(p["fecha_retorno"],"%Y-%m-%d").date()
+    if fecha<hoy and p["estado"]=="activo":
+        vencidos.append(p)
+
+print("Prestamos vencidos:",len(vencidos))
+🔹 MODULO 3 — usuarios con préstamos
+import json
+
+def cargar(a):
+    try:return json.load(open(a))
+    except:return[]
+
+prestamos=cargar("asignaciones.json")
+
+usuarios={}
+
+for p in prestamos:
+    u=p["codigo_miembro"]
+    usuarios[u]=usuarios.get(u,0)+1
+
+print(usuarios)
+🔹 MODULO 4 — herramientas más prestadas
+import json
+
+def cargar(a):
+    try:return json.load(open(a))
+    except:return[]
+
+prestamos=cargar("asignaciones.json")
+
+contador={}
+
+for p in prestamos:
+    h=p["codigo_implemento"]
+    contador[h]=contador.get(h,0)+p["unidades"]
+
+print(contador)
+🔹 MODULO 5 — inventario disponible
+import json
+
+def cargar(a):
+    try:return json.load(open(a))
+    except:return[]
+
+inventario=cargar("inventario.json")
+
+for h in inventario:
+    if h["stock"]>0:
+        print(h["titulo"],h["stock"])
+🔹 MODULO 6 — generar CSV préstamos
+import json,csv
+
+def cargar(a):
+    try:return json.load(open(a))
+    except:return[]
+
+prestamos=cargar("asignaciones.json")
+
+with open("prestamos.csv","w",newline="") as f:
+    w=csv.writer(f)
+    w.writerow(["id","cantidad"])
+    for p in prestamos:
+        w.writerow([p["id"],p["unidades"]])
+
+print("CSV generado")
+🔹 MODULO 7 — usuarios residentes
+import json
+
+usuarios=json.load(open("miembros.json"))
+
+for u in usuarios:
+    if u["rol"]=="residente":
+        print(u["nombres"],u["apellidos"])
+🔹 MODULO 8 — contar herramientas
+import json
+
+inventario=json.load(open("inventario.json"))
+
+print("Total herramientas:",len(inventario))
+🔹 MODULO 9 — herramientas sin stock
+import json
+
+inventario=json.load(open("inventario.json"))
+
+for h in inventario:
+    if h["stock"]==0:
+        print(h["titulo"])
+🔹 MODULO 10 — promedio de precios
+import json
+
+inv=json.load(open("inventario.json"))
+
+total=0
+
+for h in inv:
+    total+=h["precio_estimado"]
+
+print(total/len(inv))
+🔹 MODULO 11 — herramientas caras
+import json
+
+inv=json.load(open("inventario.json"))
+
+for h in inv:
+    if h["precio_estimado"]>50000:
+        print(h["titulo"])
+🔹 MODULO 12 — generar TXT usuarios
+import json
+
+u=json.load(open("miembros.json"))
+
+with open("usuarios.txt","w") as f:
+    for x in u:
+        f.write(x["nombres"]+" "+x["apellidos"]+"\n")
+🔹 MODULO 13 — préstamos por usuario
+import json
+
+prestamos=json.load(open("asignaciones.json"))
+
+id=input("Usuario:")
+
+for p in prestamos:
+    if p["codigo_miembro"]==id:
+        print(p)
+🔹 MODULO 14 — total unidades prestadas
+import json
+
+p=json.load(open("asignaciones.json"))
+
+total=0
+
+for x in p:
+    total+=x["unidades"]
+
+print(total)
+🔹 MODULO 15 — préstamos cancelados
+import json
+
+p=json.load(open("asignaciones.json"))
+
+for x in p:
+    if x["estado"]!="activo":
+        print(x)
+🔹 MODULO 16 — exportar inventario CSV
+import json,csv
+
+inv=json.load(open("inventario.json"))
+
+with open("inventario.csv","w",newline="") as f:
+    w=csv.writer(f)
+    w.writerow(["titulo","stock"])
+
+    for h in inv:
+        w.writerow([h["titulo"],h["stock"]])
+🔹 MODULO 17 — buscar herramienta
+import json
+
+inv=json.load(open("inventario.json"))
+
+nombre=input("Nombre:")
+
+for h in inv:
+    if nombre in h["titulo"]:
+        print(h)
+🔹 MODULO 18 — herramientas por tipo
+import json
+
+inv=json.load(open("inventario.json"))
+
+tipo=input("Tipo:")
+
+for h in inv:
+    if h["tipo"]==tipo:
+        print(h["titulo"])
+🔹 MODULO 19 — contar residentes
+import json
+
+u=json.load(open("miembros.json"))
+
+c=0
+
+for x in u:
+    if x["rol"]=="residente":
+        c+=1
+
+print(c)
+🔹 MODULO 20 — generar Markdown inventario
+import json
+
+inv=json.load(open("inventario.json"))
+
+with open("inventario.md","w") as f:
+
+    f.write("# Inventario\n")
+
+    for h in inv:
+        f.write(f"{h['titulo']} | {h['stock']}\n")
+🔹 MODULO 21 — préstamos hoy
+import json
+from datetime import datetime
+
+p=json.load(open("asignaciones.json"))
+
+hoy=str(datetime.now().date())
+
+for x in p:
+    if x["fecha_salida"]==hoy:
+        print(x)
+🔹 MODULO 22 — herramientas en reparación
+import json
+
+inv=json.load(open("inventario.json"))
+
+for h in inv:
+    if h["condicion"]!="disponible":
+        print(h)
+🔹 MODULO 23 — usuario con más préstamos
+import json
+
+p=json.load(open("asignaciones.json"))
+
+cont={}
+
+for x in p:
+    u=x["codigo_miembro"]
+    cont[u]=cont.get(u,0)+1
+
+print(max(cont,key=cont.get))
+🔹 MODULO 24 — inventario total valor
+import json
+
+inv=json.load(open("inventario.json"))
+
+total=0
+
+for h in inv:
+    total+=h["precio_estimado"]*h["stock"]
+
+print(total)
+🔹 MODULO 25 — reporte completo
+import json
+
+p=json.load(open("asignaciones.json"))
+
+with open("reporte.txt","w") as f:
+
+    for x in p:
+        f.write(str(x)+"\n")
+
+print("Reporte generado")
+
+======================================================================================================================
+MODULO 1
+Reporte de herramientas más prestadas (Markdown)
+import json
+
+def cargar_datos(archivo):
+    try:
+        with open(archivo,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+prestamos = cargar_datos("asignaciones.json")
+herramientas = cargar_datos("inventario.json")
+
+contador = {}
+
+for p in prestamos:
+    id_h = p["codigo_implemento"]
+    contador[id_h] = contador.get(id_h,0) + p["unidades"]
+
+resultado = []
+
+for h in herramientas:
+    if h["id"] in contador:
+        resultado.append((h["titulo"],contador[h["id"]]))
+
+resultado.sort(key=lambda x: x[1],reverse=True)
+
+if not resultado:
+    print("No hay datos para generar reporte")
+else:
+    with open("herramientas_mas_prestadas.md","w",encoding="utf-8") as f:
+
+        f.write("# Herramientas más prestadas\n\n")
+        f.write("| herramienta | total_prestamos |\n")
+        f.write("|---|---|\n")
+
+        for r in resultado:
+            f.write(f"| {r[0]} | {r[1]} |\n")
+
+    print("Reporte generado correctamente")
+MODULO 2
+Reporte de usuarios con más préstamos
+import json
+
+def cargar(archivo):
+    try:
+        with open(archivo,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+prestamos = cargar("asignaciones.json")
+usuarios = cargar("miembros.json")
+
+conteo = {}
+
+for p in prestamos:
+    u = p["codigo_miembro"]
+    conteo[u] = conteo.get(u,0) + 1
+
+reporte = []
+
+for u in usuarios:
+    if u["id"] in conteo:
+        nombre = u["nombres"]+" "+u["apellidos"]
+        reporte.append((nombre,conteo[u["id"]]))
+
+reporte.sort(key=lambda x:x[1],reverse=True)
+
+if not reporte:
+    print("No hay prestamos registrados")
+else:
+    with open("usuarios_mas_prestamos.csv","w",encoding="utf-8") as f:
+
+        f.write("usuario,total_prestamos\n")
+
+        for r in reporte:
+            f.write(f"{r[0]},{r[1]}\n")
+
+    print("Archivo generado")
+MODULO 3
+Reporte de inventario valorizado
+
+Calcula el valor total del inventario.
+
+import json
+
+def cargar(a):
+    try:
+        with open(a,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+inventario = cargar("inventario.json")
+
+if not inventario:
+    print("Inventario vacío")
+else:
+
+    total = 0
+
+    with open("reporte_inventario.md","w",encoding="utf-8") as f:
+
+        f.write("# Valor del Inventario\n\n")
+
+        f.write("| herramienta | stock | precio | total |\n")
+        f.write("|---|---|---|---|\n")
+
+        for h in inventario:
+
+            valor = h["stock"] * h["precio_estimado"]
+
+            total += valor
+
+            f.write(f"| {h['titulo']} | {h['stock']} | {h['precio_estimado']} | {valor} |\n")
+
+        f.write(f"\nTotal inventario: {total}\n")
+
+    print("Reporte generado")
+MODULO 4
+Reporte de herramientas comprometidas
+
+Cuántas herramientas están prestadas actualmente.
+
+import json
+
+def cargar(a):
+    try:
+        with open(a,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+prestamos = cargar("asignaciones.json")
+inventario = cargar("inventario.json")
+
+comprometidas = {}
+
+for p in prestamos:
+
+    if p["estado"] == "activo":
+
+        h = p["codigo_implemento"]
+
+        comprometidas[h] = comprometidas.get(h,0) + p["unidades"]
+
+resultado = []
+
+for h in inventario:
+
+    if h["id"] in comprometidas:
+
+        resultado.append((h["titulo"],comprometidas[h["id"]]))
+
+if not resultado:
+    print("No hay herramientas comprometidas")
+else:
+
+    with open("herramientas_comprometidas.txt","w",encoding="utf-8") as f:
+
+        for r in resultado:
+
+            f.write(f"{r[0]} -> {r[1]}\n")
+
+    print("Archivo generado")
+MODULO 5
+Reporte completo de préstamos
+
+Cruza usuarios + herramientas + préstamos.
+
+import json
+
+def cargar(a):
+    try:
+        with open(a,"r",encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+prestamos = cargar("asignaciones.json")
+usuarios = cargar("miembros.json")
+herramientas = cargar("inventario.json")
+
+def nombre_usuario(id):
+
+    for u in usuarios:
+        if u["id"] == id:
+            return u["nombres"]+" "+u["apellidos"]
+
+    return "desconocido"
+
+def nombre_herramienta(id):
+
+    for h in herramientas:
+        if h["id"] == id:
+            return h["titulo"]
+
+    return "desconocida"
+
+
+if not prestamos:
+    print("No hay prestamos registrados")
+
+else:
+
+    with open("reporte_prestamos.md","w",encoding="utf-8") as f:
+
+        f.write("# Reporte de prestamos\n\n")
+
+        f.write("| usuario | herramienta | unidades | estado |\n")
+        f.write("|---|---|---|---|\n")
+
+        for p in prestamos:
+
+            usuario = nombre_usuario(p["codigo_miembro"])
+            herramienta = nombre_herramienta(p["codigo_implemento"])
+
+            f.write(f"| {usuario} | {herramienta} | {p['unidades']} | {p['estado']} |\n")
+
+    print("Reporte generado correctamente")
+    ========================================================================================================================
+    MODULO 1
+Detectar préstamos inválidos (herramientas que no existen)
+
+Este módulo busca préstamos donde el ID de herramienta no existe en el inventario.
+
+import json
+
+# ---------- CARGAR ARCHIVOS ----------
+
+try:
+    with open("inventario.json","r",encoding="utf-8") as f:
+        inventario = json.load(f)
+except:
+    inventario = []
+
+try:
+    with open("asignaciones.json","r",encoding="utf-8") as f:
+        prestamos = json.load(f)
+except:
+    prestamos = []
+
+
+# ---------- OBTENER IDS VALIDOS DE HERRAMIENTAS ----------
+
+ids_herramientas = []
+
+for h in inventario:
+    ids_herramientas.append(h["id"])
+
+
+# ---------- BUSCAR PRESTAMOS INVALIDOS ----------
+
+prestamos_invalidos = []
+
+for p in prestamos:
+
+    if p["codigo_implemento"] not in ids_herramientas:
+
+        prestamos_invalidos.append(p)
+
+
+# ---------- GENERAR REPORTE ----------
+
+if not prestamos_invalidos:
+
+    print("No se encontraron prestamos invalidos")
+
+else:
+
+    with open("prestamos_invalidos.md","w",encoding="utf-8") as f:
+
+        f.write("# Prestamos con herramientas inexistentes\n\n")
+
+        f.write("| id_prestamo | herramienta | usuario |\n")
+        f.write("|---|---|---|\n")
+
+        for p in prestamos_invalidos:
+
+            f.write(f"| {p['id']} | {p['codigo_implemento']} | {p['codigo_miembro']} |\n")
+
+    print("Reporte generado: prestamos_invalidos.md")
+MODULO 2
+Detectar herramientas sobreprestadas
+
+Detecta cuando se prestaron más unidades de las que existen en inventario.
+
+import json
+
+# ---------- CARGA DE ARCHIVOS ----------
+
+with open("inventario.json","r",encoding="utf-8") as f:
+    inventario = json.load(f)
+
+with open("asignaciones.json","r",encoding="utf-8") as f:
+    prestamos = json.load(f)
+
+
+# ---------- CALCULAR TOTAL PRESTADO POR HERRAMIENTA ----------
+
+prestado = {}
+
+for p in prestamos:
+
+    id_h = p["codigo_implemento"]
+
+    prestado[id_h] = prestado.get(id_h,0) + p["unidades"]
+
+
+# ---------- COMPARAR CON STOCK ----------
+
+errores = []
+
+for h in inventario:
+
+    id_h = h["id"]
+
+    stock = h["stock"]
+
+    prestado_total = prestado.get(id_h,0)
+
+    if prestado_total > stock:
+
+        errores.append((h["titulo"],stock,prestado_total))
+
+
+# ---------- MOSTRAR RESULTADOS ----------
+
+if not errores:
+
+    print("No hay herramientas sobreprestadas")
+
+else:
+
+    print("\nHerramientas con mas prestamos que stock\n")
+
+    for e in errores:
+
+        print("Herramienta:",e[0])
+        print("Stock:",e[1])
+        print("Prestado:",e[2])
+        print()
+MODULO 3
+Reporte de usuarios que tienen más de 3 herramientas prestadas
+
+Cruza usuarios + préstamos.
+
+import json
+
+
+# ---------- CARGAR DATOS ----------
+
+with open("miembros.json","r",encoding="utf-8") as f:
+    usuarios = json.load(f)
+
+with open("asignaciones.json","r",encoding="utf-8") as f:
+    prestamos = json.load(f)
+
+
+# ---------- CONTAR HERRAMIENTAS POR USUARIO ----------
+
+conteo = {}
+
+for p in prestamos:
+
+    id_u = p["codigo_miembro"]
+
+    conteo[id_u] = conteo.get(id_u,0) + p["unidades"]
+
+
+# ---------- FILTRAR USUARIOS CON MAS DE 3 ----------
+
+usuarios_exceso = []
+
+for u in usuarios:
+
+    total = conteo.get(u["id"],0)
+
+    if total > 3:
+
+        nombre = u["nombres"] + " " + u["apellidos"]
+
+        usuarios_exceso.append((nombre,total))
+
+
+# ---------- GENERAR REPORTE ----------
+
+if not usuarios_exceso:
+
+    print("No hay usuarios con mas de 3 herramientas")
+
+else:
+
+    with open("usuarios_exceso.txt","w",encoding="utf-8") as f:
+
+        for u in usuarios_exceso:
+
+            f.write(f"{u[0]} -> {u[1]} herramientas\n")
+
+    print("Reporte generado")
+MODULO 4
+Detectar usuarios que tienen préstamos duplicados de la misma herramienta
+
+Esto pasa cuando un usuario pidió la misma herramienta varias veces.
+
+import json
+
+
+# ---------- CARGAR ARCHIVOS ----------
+
+with open("asignaciones.json","r",encoding="utf-8") as f:
+    prestamos = json.load(f)
+
+
+# ---------- BUSCAR DUPLICADOS ----------
+
+registro = {}
+
+duplicados = []
+
+for p in prestamos:
+
+    clave = (p["codigo_miembro"],p["codigo_implemento"])
+
+    if clave in registro:
+
+        duplicados.append(clave)
+
+    else:
+
+        registro[clave] = True
+
+
+# ---------- MOSTRAR RESULTADOS ----------
+
+if not duplicados:
+
+    print("No hay prestamos duplicados")
+
+else:
+
+    print("Usuarios con herramientas repetidas\n")
+
+    for d in duplicados:
+
+        print("Usuario:",d[0],"Herramienta:",d[1])
+MODULO 5
+Reconstruir stock real del inventario
+
+Calcula el stock real descontando los préstamos activos.
+
+import json
+
+
+# ---------- CARGAR DATOS ----------
+
+with open("inventario.json","r",encoding="utf-8") as f:
+    inventario = json.load(f)
+
+with open("asignaciones.json","r",encoding="utf-8") as f:
+    prestamos = json.load(f)
+
+
+# ---------- CALCULAR HERRAMIENTAS PRESTADAS ----------
+
+prestadas = {}
+
+for p in prestamos:
+
+    if p["estado"] == "activo":
+
+        id_h = p["codigo_implemento"]
+
+        prestadas[id_h] = prestadas.get(id_h,0) + p["unidades"]
+
+
+# ---------- CALCULAR STOCK REAL ----------
+
+reporte = []
+
+for h in inventario:
+
+    id_h = h["id"]
+
+    stock = h["stock"]
+
+    prestado = prestadas.get(id_h,0)
+
+    disponible = stock - prestado
+
+    reporte.append((h["titulo"],stock,prestado,disponible))
+
+
+# ---------- MOSTRAR RESULTADO ----------
+
+print("\nStock real del inventario\n")
+
+for r in reporte:
+
+    print("Herramienta:",r[0])
+    print("Stock total:",r[1])
+    print("Prestadas:",r[2])
+    print("Disponibles:",r[3])
+    print()

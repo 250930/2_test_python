@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2026-02-23 10:38:22",
+    "tipo": "ACCION",
+    "descripcion": "Implemento creado: martillo (ID: 1)"
+  },
+  {
+    "timestamp": "2026-02-23 10:39:10",
+    "tipo": "ACCION",
+    "descripcion": "Miembro registrado: junior nnaranjo (ID: 1)"
+  },
+  {
+    "timestamp": "2026-02-23 10:41:57",
+    "tipo": "ERROR",
+    "descripcion": "Asignación fallida: implemento 5 no existe"
+  },
+  {
+    "timestamp": "2026-02-23 10:42:32",
+    "tipo": "ACCION",
+    "descripcion": "Asignación creada: 1"
+  },
+  {
+    "timestamp": "2026-02-23 10:42:32",
+    "tipo": "ACCION",
+    "descripcion": "Asignación creada: 1 - junior nnaranjo - martillo"
+  }
+]

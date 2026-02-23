@@ -1,0 +1,5 @@
+[2026-02-23 10:38:22] [ACCION] Implemento creado: martillo (ID: 1)
+[2026-02-23 10:39:10] [ACCION] Miembro registrado: junior nnaranjo (ID: 1)
+[2026-02-23 10:41:57] [ERROR] Asignación fallida: implemento 5 no existe
+[2026-02-23 10:42:32] [ACCION] Asignación creada: 1
+[2026-02-23 10:42:32] [ACCION] Asignación creada: 1 - junior nnaranjo - martillo

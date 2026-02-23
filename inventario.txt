@@ -1,0 +1,1 @@
+1,martillo,construccion,15,disponible,30000.0
